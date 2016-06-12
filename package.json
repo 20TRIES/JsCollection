@@ -1,0 +1,23 @@
+{
+  "name": "js_collection",
+  "version": "0.0.1",
+  "description": "A simple javascript collection class insipred by Laravels collection.",
+  "main": "src/Collection.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://20TRIES@github.com/20TRIES/JsCollection.git"
+  },
+  "keywords": [
+    "Collection",
+    "Js"
+  ],
+  "author": "Marcus T",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/20TRIES/JsCollection/issues"
+  },
+  "homepage": "https://github.com/20TRIES/JsCollection#readme"
+}
