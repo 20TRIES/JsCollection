@@ -2,7 +2,7 @@
   "name": "js_collection",
   "version": "0.0.1",
   "description": "A simple javascript collection class insipred by Laravels collection.",
-  "main": "src/Collection.js",
+  "main": "src/Collection.dist.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +19,14 @@
   "bugs": {
     "url": "https://github.com/20TRIES/JsCollection/issues"
   },
-  "homepage": "https://github.com/20TRIES/JsCollection#readme"
+  "homepage": "https://github.com/20TRIES/JsCollection#readme",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "webpack": "^1.13.*",
+    "babel-core": "6.9.*",
+    "babel-loader": "^6.2.*",
+    "babel-preset-es2015": "^6.9.*"
+  }
 }
