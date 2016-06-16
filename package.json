@@ -4,8 +4,8 @@
   "description": "A simple javascript collection class insipred by Laravels collection.",
   "main": "src/Collection.js",
   "scripts": {
-    "build": "rollup -c;",
-    "test": "mocha -u 'tdd';"
+    "test": "./node_modules/mocha/bin/mocha -u 'tdd'",
+    "pretest": "./node_modules/rollup/bin/rollup -c"
   },
   "repository": {
     "type": "git",
