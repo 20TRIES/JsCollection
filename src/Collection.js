@@ -1,15 +1,17 @@
+import MissingParameterException from "./MissingParameterException";
+import InvalidOperatorException from "./InvalidOperatorException";
+
 /**
  * A class for handling collections of items.
- *
- * @since 4.0
  */
 export default class Collection {
     /**
      * Constructor
      *
+     * @param {Array} items
      * @param {String} primary_key
      */
-    constructor(primary_key, items = []) {
+    constructor(items = [], primary_key = null) {
         /**
          * @type {String}
          */
@@ -18,19 +20,17 @@ export default class Collection {
         /**
          * @type {Array}
          */
-        this.items = typeof items == 'undefined' ? [] : items;
+        this.items = items instanceof Array ? items : [];
 
         /**
          * @type {Object}
          */
         this.operators = {
-            "!=": function(val_1, val_2)
-            {
-                return val_1 != val_2;
+            "!=": function (attribute, value) {
+                return (item) => item[attribute] != value;
             },
-            "=": function(val_1, val_2)
-            {
-                return val_1 == val_2;
+            "=": function (attribute, value) {
+                return (item) => item[attribute] == value;
             }
         };
     }
@@ -150,7 +150,8 @@ export default class Collection {
      * @returns {Collection}
      */
     filter(user_filter) {
-        var results = new this.constructor(this.primary_key);
+        let results = new this.constructor(this.primary_key);
+
         for(var key in this.items) {
             if(user_filter(this.items[key])) {
                 results.push(this.items[key]);
@@ -182,21 +183,31 @@ export default class Collection {
     /**
      * Filters a collection to those that have a specific attribute with a specified value.
      *
-     * @param {String} attribute
-     * @param {*} value
+     * @param {*} args ({?attribute_name}, {?operator}, {value|function})
      * @returns {Collection}
      */
-    where(attribute, operator, value) {
-        if(typeof value == 'undefined') {
-            value = operator;
-            operator = '='
-        }
-        operator = this.operators[operator];
-        return this.filter((function(attribute, operator, value){
-            return function(item) {
-                return operator(item[attribute], value);
+    where(...args) {
+        let callback, value;
+        if(args.length < 1) {
+            throw new MissingParameterException("At least one parameter must be passed.");
+        } else if(args[0] instanceof Function) {
+            callback = args[0];
+            value = null;
+        } else if(args.length > 2) {
+            let attribute = args[0];
+            let operator = args[1];
+            if(typeof this.operators[operator] == 'undefined') {
+                throw new InvalidOperatorException(`Invalid operator '${operator}'`);
             }
-        })(attribute, operator, value));
+            value = args[2];
+            callback = this.operators[operator](attribute, value);
+        } else {
+            let attribute = args[0];
+            let operator = "=";
+            value = args[1];
+            callback = this.operators[operator](attribute, value);
+        }
+        return this.filter((item) => callback(item, value));
     }
 
     /**

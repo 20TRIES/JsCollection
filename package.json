@@ -4,7 +4,8 @@
   "description": "A simple javascript collection class insipred by Laravels collection.",
   "main": "src/Collection.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c;",
+    "test": "mocha -u 'tdd';"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,10 @@
 
   },
   "devDependencies": {
-
+    "mocha": "^2.5.*",
+    "chai": "^3.5.*",
+    "rollup": "^0.31.*",
+    "rollup-plugin-buble": "0.11.*",
+    "rollup-plugin-npm": "1.4.*"
   }
 }
