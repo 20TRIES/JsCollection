@@ -1,7 +1,7 @@
 {
   "name": "js_collection",
   "version": "0.0.1",
-  "description": "A simple javascript collection class insipred by Laravels collection.",
+  "description": "A simple ES6 collection class.",
   "main": "src/Collection.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha -u 'tdd'",
