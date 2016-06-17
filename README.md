@@ -1,2 +1,2 @@
 # JsCollection
-A collection package for Javascript.
+A collection package written using ES6.
