@@ -146,18 +146,31 @@ export default class Collection {
     /**
      * Filters a collection using a user provided filter function.
      *
-     * @param function user_filter
+     * @param {Function} callback
      * @returns {Collection}
      */
-    filter(user_filter) {
-        let results = new this.constructor(this.primary_key);
-
-        for(var key in this.items) {
-            if(user_filter(this.items[key])) {
-                results.push(this.items[key]);
+    filter(callback) {
+        let subset = new this.constructor([], this.primary_key);
+        this.each((key, item, subset) => {
+            if(callback(this.items[key])) {
+                subset.push(this.items[key]);
             }
+        }, subset);
+        return subset;
+    }
+
+    /**
+     * Executes a callback for each item within a collection.
+     *
+     * No change is made to the collection and no new collection is returned.
+     *
+     * @param {Function} callback
+     * @param {...*} $args
+     */
+    each(callback, ...$args) {
+        for(let i=0; i < this.count(); ++i) {
+            callback(i, this.items[i], ...$args);
         }
-        return results;
     }
 
     /**
