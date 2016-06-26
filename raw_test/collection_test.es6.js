@@ -31,6 +31,16 @@ suite('Collection', function() {
         });
         assert.equal(JSON.stringify(collection), expected);
     });
+    test('test_each_breaks_if_result_is_false', function () {
+        let collection = new Collection([{"id": 1}, {"id": 1}]);
+        let iterated = [];
+        collection.each((key, item) => {
+            iterated.push(item);
+            return false;
+        });
+        let expected = [{"id": 1}];
+        assert.equal(JSON.stringify(iterated), JSON.stringify(expected));
+    });
 
     // Filter Method
     test('test_filter_method', function () {
