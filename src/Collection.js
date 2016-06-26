@@ -52,7 +52,7 @@ export default class Collection {
      * @returns {boolean}
      */
     isEmpty() {
-        return this.items.length == 0;
+        return this.count() == 0;
     }
 
     /**
