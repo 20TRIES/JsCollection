@@ -117,10 +117,7 @@ export default class Collection {
      * @returns {*|null}
      */
     get(id) {
-        var primary_key = this.primary_key;
-        return this.filter(function (item) {
-            return item[primary_key] == id;
-        }).first();
+        return this.filter((item) => item[this.primary_key] == id).first();
     }
 
     /**
