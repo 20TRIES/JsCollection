@@ -1,6 +1,8 @@
 import MissingParameterException from "./MissingParameterException";
 import InvalidOperatorException from "./InvalidOperatorException";
 
+var clone = require('clone');
+
 /**
  * A class for handling collections of items.
  */
