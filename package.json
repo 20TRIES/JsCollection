@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/20TRIES/JsCollection#readme",
   "dependencies": {
-
+    "clone": "1.0.*"
   },
   "devDependencies": {
     "mocha": "^2.5.*",

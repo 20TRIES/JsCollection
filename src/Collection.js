@@ -169,7 +169,8 @@ export default class Collection {
      */
     each(callback, ...$args) {
         for(let i=0; i < this.count(); ++i) {
-            callback(i, this.items[i], ...$args);
+            let item = clone(this.items[i]);
+            callback(i, item, ...$args);
         }
     }
 

@@ -24,7 +24,7 @@ suite('Collection', function() {
         assert.equal(JSON.stringify(iterated), JSON.stringify(items));
     });
     test('test_each_doesnt_change_the_original_collection', function () {
-        let collection = new Collection({"id": 1});
+        let collection = new Collection([{"id": 1}]);
         let expected = JSON.stringify(collection);
         collection.each((key, item) => {
            item.id = 99;
