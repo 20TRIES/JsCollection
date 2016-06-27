@@ -257,16 +257,15 @@ export default class Collection {
         if(typeof key != 'string') {
             key = attribute;
         }
-        var results = new Collection(key, []);
-        for(var item_key in this.all()) {
-            var item = this.items[item_key];
-            var plucked = {};
-            plucked[attribute] = item[attribute];
+        let results = new this.constructor([], key);
+        this.each((i, item, results) => {
+            let plucked = {};
             if(key != attribute) {
                 plucked[key] = item[key];
             }
+            plucked[attribute] = item[attribute];
             results.push(plucked);
-        }
+        }, results);
         return results;
     }
 
@@ -331,17 +330,17 @@ export default class Collection {
     }
 
     /**
-     * Applies a transformation to each item in the current collection.
+     * Applies a transformation to each item in a collection.
      *
      * @param {Function} callback
      * @returns {Collection}
      */
     transform(callback) {
-        var items = [];
-        for(var key in this.items) {
-            items[key] = callback(this.items[key]);
-        }
-        return new Collection(null, items);
+        let results = new Collection(null, this.primary_key);
+        this.each((key, item) => {
+            results.push(callback(item));
+        }, results);
+        return results;
     }
 
     /**

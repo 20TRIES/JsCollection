@@ -145,4 +145,62 @@ suite('Collection', function() {
             collection.slice(-4, 1);
         }, OutOfRangeException);
     });
+
+    // Transform Method
+    test('test_transform_method', function () {
+        let collection = new Collection([{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}]);
+        let expected = new Collection([{"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]);
+        let result = collection.transform((item) => {
+            ++item.id;
+            return item;
+        });
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
+    test('test_transform_method_doesnt_change_original_collection', function () {
+        let collection = new Collection([{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}]);
+        let expected = JSON.stringify(collection);
+        collection.transform((item) => {
+            ++item.id;
+            return item;
+        });
+        assert.equal(expected, JSON.stringify(collection));
+    });
+
+    // Pluck method
+    test('test_pluck_method', function () {
+        let collection = new Collection([
+            {"id": 1, "name": "one"},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ], "id");
+        let result = collection.pluck("name");
+        let expected = new Collection([
+            {"name": "one"},
+            {"name": "two"},
+            {"name": "three"},
+            {"name": "four"},
+            {"name": "five"}
+        ], "name");
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
+    test('test_pluck_method_takes_key', function () {
+        let collection = new Collection([
+            {"id": 1, "name": "one"},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ], "id");
+        let result = collection.pluck("name", "id");
+        let expected = new Collection([
+            {"id": 1, "name": "one"},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ], "id");
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
 });
