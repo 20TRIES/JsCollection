@@ -1,6 +1,6 @@
 {
   "name": "js_collection",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple ES6 collection class.",
   "main": "src/Collection.js",
   "scripts": {
