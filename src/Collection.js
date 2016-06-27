@@ -1,5 +1,6 @@
 import MissingParameterException from "./MissingParameterException";
 import InvalidOperatorException from "./InvalidOperatorException";
+import OutOfRangeException from "./OutOfRangeException";
 
 var clone = require('clone');
 
@@ -136,10 +137,35 @@ export default class Collection {
      * @returns {*|null}
      */
     first() {
-        for(var key in this.items) {
-            return this.items[key];
+        return this.items[0];
+    }
+
+    /**
+     * Gets a slice of a collection using a given offset and size value.
+     *
+     * @param {int} offset
+     * @param {int} size
+     * @returns {Collection}
+     */
+    slice(offset, size) {
+        if (size <= 0) {
+            throw new OutOfRangeException('Take must be >0');
+        } else if (Math.abs(offset) > this.count()) {
+            throw new OutOfRangeException('Offset exceeds number of items within collection');
         }
-        return null;
+
+        let slice = new this.constructor([], this.primary_key);
+        offset = offset >= 0 ? offset : size + offset;
+
+        for (let i = 0, item = this.items[0]; i < this.count() && size > 0; item=this.items[++i]) {
+            if (offset > 0) {
+                --offset;
+            } else {
+                --size;
+                slice.push(item);
+            }
+        }
+        return slice;
     }
 
     /**

@@ -3,6 +3,7 @@ var assert = require('chai').assert;
 import Collection from "../src/Collection";
 import MissingParameterException from "../src/MissingParameterException";
 import InvalidOperatorException from "../src/InvalidOperatorException";
+import OutOfRangeException from "../src/OutOfRangeException";
 
 suite('Collection', function() {
 
@@ -86,5 +87,72 @@ suite('Collection', function() {
             let collection = new Collection([{"id": 1}, {"id": 2}, {"id": 3}]);
             collection.where("id", "invalid_operator", 1);
         }, InvalidOperatorException);
+    });
+
+    // First Method
+    test('test_first_method_gets_first_item_pushed', function () {
+        let collection = new Collection([]);
+
+        collection.push({"id": 1});
+        collection.push({"id": 2});
+        collection.push({"id": 3});
+
+        let result = collection.first();
+
+        assert.equal(JSON.stringify(result), JSON.stringify({"id": 1}));
+    });
+
+    // Slice Method
+    test('test_slice_method', function () {
+        let collection = new Collection([]);
+
+        collection.push({"id": 1});
+        collection.push({"id": 2});
+        collection.push({"id": 3});
+        collection.push({"id": 4});
+        collection.push({"id": 5});
+        collection.push({"id": 6});
+        collection.push({"id": 7});
+        collection.push({"id": 8});
+        collection.push({"id": 9});
+        collection.push({"id": 10});
+
+        let expected = new Collection([{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}]);
+
+        let result = collection.slice(0, 5);
+
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
+    test('test_slice_method_handles_negative_offsets', function () {
+        let collection = new Collection([]);
+
+        collection.push({"id": 1});
+        collection.push({"id": 2});
+        collection.push({"id": 3});
+        collection.push({"id": 4});
+        collection.push({"id": 5});
+        collection.push({"id": 6});
+        collection.push({"id": 7});
+        collection.push({"id": 8});
+        collection.push({"id": 9});
+        collection.push({"id": 10});
+
+        let expected = new Collection([{"id": 5}, {"id": 6}, {"id": 7}, {"id": 8}, {"id": 9}]);
+
+        let result = collection.slice(-1, 5);
+
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
+    test('test_slice_method_throws_exception_when_offset_exceeds_length_in_positive', function () {
+        assert.throws(() => {
+            let collection = new Collection([{"id": 1}, {"id": 2}, {"id": 3}]);
+            collection.slice(4, 1);
+        }, OutOfRangeException);
+    });
+    test('test_slice_method_throws_exception_when_offset_exceeds_length_in_negative', function () {
+        assert.throws(() => {
+            let collection = new Collection([{"id": 1}, {"id": 2}, {"id": 3}]);
+            collection.slice(-4, 1);
+        }, OutOfRangeException);
     });
 });
