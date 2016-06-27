@@ -185,19 +185,14 @@ export default class Collection {
     }
 
     /**
-     * Executes a callback for each item within a collection.
-     *
-     * No change is made to the collection and no new collection is returned. To break from the
-     * loop, return false.
+     * Calls a closure against each item within a collection.
      *
      * @param {Function} callback
-     * @param {...*} $args
+     * @param {{}} data data that should be passed to the closure
      */
-    each(callback, ...$args) {
-        let should_continue = true;
-        for(let i=0; i < this.count() && should_continue; ++i) {
-            let item = clone(this.items[i]);
-            should_continue = callback(i, item, ...$args) !== false;
+    each(callback, data = {}) {
+        for(let i=0; i < this.count(); ++i) {
+            callback(i, clone(this.items[i]), data);
         }
     }
 
