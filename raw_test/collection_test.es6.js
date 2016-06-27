@@ -7,7 +7,7 @@ import OutOfRangeException from "../src/OutOfRangeException";
 
 suite('Collection', function() {
 
-    // Each Method
+    // EACH METHOD
     test('test_each_method_passes_extra_arguments_to_closure', function () {
         let collection = new Collection([{"id": 1}]);
         let arg = "mock_string";
@@ -33,7 +33,7 @@ suite('Collection', function() {
         assert.equal(JSON.stringify(collection), expected);
     });
 
-    // Filter Method
+    // FILTER METHOD
     test('test_filter_method', function () {
         let collection = new Collection([{"id": 1}, {"id": 2}, {"id": 3}]);
         let expected_1 = JSON.stringify(collection);
@@ -47,7 +47,7 @@ suite('Collection', function() {
         assert.equal(JSON.stringify(expected_2), JSON.stringify(result));
     });
 
-    // Where Method
+    // WHERE METHOD
     test('test_where_method_takes_function', function () {
         let collection = new Collection([{"id": 1}, {"id": 2}, {"id": 3}]);
         let expected_collection = new Collection([{"id": 1}]);
@@ -79,7 +79,7 @@ suite('Collection', function() {
         }, InvalidOperatorException);
     });
 
-    // First Method
+    // FIRST METHOD
     test('test_first_method_gets_first_item_pushed', function () {
         let collection = new Collection([]);
 
@@ -92,7 +92,7 @@ suite('Collection', function() {
         assert.equal(JSON.stringify(result), JSON.stringify({"id": 1}));
     });
 
-    // Slice Method
+    // SLICE METHOD
     test('test_slice_method', function () {
         let collection = new Collection([]);
 
@@ -146,7 +146,7 @@ suite('Collection', function() {
         }, OutOfRangeException);
     });
 
-    // Transform Method
+    // TRANSFORM METHOD
     test('test_transform_method', function () {
         let collection = new Collection([{"id": 1}, {"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}]);
         let expected = new Collection([{"id": 2}, {"id": 3}, {"id": 4}, {"id": 5}, {"id": 6}]);
@@ -166,7 +166,7 @@ suite('Collection', function() {
         assert.equal(expected, JSON.stringify(collection));
     });
 
-    // Pluck method
+    // PLUCK METHOD
     test('test_pluck_method', function () {
         let collection = new Collection([
             {"id": 1, "name": "one"},

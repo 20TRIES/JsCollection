@@ -188,7 +188,7 @@ export default class Collection {
      * Calls a closure against each item within a collection.
      *
      * @param {Function} callback
-     * @param {{}} data data that should be passed to the closure
+     * @param {*} data data that should be passed to the closure
      */
     each(callback, data = {}) {
         for(let i=0; i < this.count(); ++i) {
