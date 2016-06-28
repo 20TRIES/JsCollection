@@ -364,4 +364,20 @@ export default class Collection {
         }, arr);
         return arr;
     }
+    
+    /**
+     * Groups items within a collection into sub collections of a maximum size.
+     */
+    chunk(max) {
+        let chunked = new Collection([]);
+        let chunk = new Collection([], this.primary_key);
+        for(let i=0; i < this.count(); ++i) {
+            chunk.push(this.items[i]);
+            if(chunk.count() == max || i == (this.count()-1)) {
+                chunked.push(chunk);
+                chunk = new Collection([], this.primary_key);
+            }
+        }
+        return chunked;
+    }
 }

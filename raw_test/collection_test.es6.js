@@ -241,4 +241,46 @@ suite('Collection', function() {
         ];
         assert.equal(JSON.stringify(result), JSON.stringify(expected));
     });
+
+    // CHUNK METHOD
+    test('test_chunk', function () {
+        let collection = new Collection([
+            {"id": 1, "name": "one"},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ], "id");
+        let result = collection.chunk(2);
+        let expected = new Collection([
+            new Collection([{"id": 1, "name": "one"}, {"id": 2, "name": "two"}], 'id'),
+            new Collection([{"id": 3, "name": "three"}, {"id": 4, "name": "four"}], 'id'),
+            new Collection([{"id": 5, "name": "five"}], 'id')
+        ]);
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
+    test('test_chunk_graceful_when_max_is_greater_then_items_in_collection', function () {
+        let collection = new Collection([
+            {"id": 1, "name": "one"},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ], "id");
+        let result = collection.chunk(6);
+        let expected = new Collection([collection]);
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
+    test('test_chunk_doesnt_change_original', function () {
+        let collection = new Collection([
+            {"id": 1, "name": "one"},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ], "id");
+        let expected = JSON.stringify(collection);
+        collection.chunk(6);
+        assert.equal(JSON.stringify(collection), expected);
+    });
 });
