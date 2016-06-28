@@ -203,4 +203,42 @@ suite('Collection', function() {
         ], "id");
         assert.equal(JSON.stringify(result), JSON.stringify(expected));
     });
+
+    // TO ARRAY METHOD
+    test('test_to_array', function () {
+        let collection = new Collection([
+            {"id": 1, "name": "one"},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ], "id");
+        let result = collection.toArray();
+        let expected = [
+            {"id": 1, "name": "one"},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ];
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
+    test('test_to_array_calls_same_method_on_each_item_if_exists', function () {
+        let collection = new Collection([
+            {"id": 1, "name": "one", "toArray": () => ["some mock result"]},
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ], "id");
+        let result = collection.toArray();
+        let expected = [
+            ["some mock result"],
+            {"id": 2, "name": "two"},
+            {"id": 3, "name": "three"},
+            {"id": 4, "name": "four"},
+            {"id": 5, "name": "five"}
+        ];
+        assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    });
 });

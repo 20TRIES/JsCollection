@@ -353,4 +353,15 @@ export default class Collection {
         this.items = this.items.sort(callback);
         return this;
     }
+
+    /**
+     * Gets an array representation of a collection.
+     */
+    toArray() {
+        let arr = [];
+        this.each((key, item) => {
+            arr.push(typeof item.toArray === "function" ? item.toArray() : item);
+        }, arr);
+        return arr;
+    }
 }
