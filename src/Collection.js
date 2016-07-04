@@ -1,8 +1,7 @@
 import MissingParameterException from "./MissingParameterException";
 import InvalidOperatorException from "./InvalidOperatorException";
 import OutOfRangeException from "./OutOfRangeException";
-
-var clone = require('clone');
+import clone from "clone";
 
 /**
  * A class for handling collections of items.
