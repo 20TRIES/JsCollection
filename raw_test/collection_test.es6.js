@@ -32,6 +32,13 @@ suite('Collection', function() {
         });
         assert.equal(JSON.stringify(collection), expected);
     });
+    test('test_each_deligates_cloning_to_item_clone_method_when_available', function () {
+        var mock_clone = "mock_clone";
+        var obj = {"clone": () => mock_clone};
+        (new Collection([obj])).each((key, item) => {
+            assert.equal(mock_clone, item);
+        });
+    });
 
     // FILTER METHOD
     test('test_filter_method', function () {

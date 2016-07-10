@@ -191,7 +191,9 @@ export default class Collection {
      */
     each(callback, data = {}) {
         for(let i=0; i < this.count(); ++i) {
-            callback(i, clone(this.items[i]), data);
+            callback(i, this.items[i].clone instanceof Function
+                ? this.items[i].clone()
+                : clone(this.items[i]), data);
         }
     }
 
