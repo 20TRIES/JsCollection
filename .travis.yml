@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  "6.6.*"
+install:
+  npm install
+before_script:
+  ./node_modules/rollup/bin/rollup -c
+script:
+  ./node_modules/mocha/bin/mocha -u "tdd"
