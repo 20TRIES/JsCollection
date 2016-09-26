@@ -1,4 +1,4 @@
-2import MissingParameterException from "./MissingParameterException";
+import MissingParameterException from "./MissingParameterException";
 import InvalidOperatorException from "./InvalidOperatorException";
 import OutOfRangeException from "./OutOfRangeException";
 import clone from "clone";
